@@ -33,11 +33,16 @@ def search(query: str):
         similarity = numerator / doc_len * query_len
         if similarity > 0:
             results.setdefault(similarity, doc.name)
-    results = OrderedDict(results)
-    print(results)
-    results_list = [get_link(r.replace('.txt', '')) for r in results.values()]
+
+    results_list = list(results.keys())
+    results_list.sort()
+    results_list.reverse()
+
     for i in results_list:
-        print(i)
+        print('%3f' % i)
+
+    for res in results_list:
+        print(get_link(results[res].replace('.txt', '')))
 
 
 def get_length(dictionary: dict):
@@ -55,4 +60,4 @@ def get_link(num : str):
 
 
 if __name__ == "__main__":
-    search("бездомная кошка")
+    search("бегемот кошки")
